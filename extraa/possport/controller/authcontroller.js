@@ -7,7 +7,7 @@ const loginpage= (req, res)=>{
 res.render('login')
 }
 const dashpage= (req, res)=>{
-res.render('dash')
+return res.render('dash');
 }
 
 const registerusers=async(req ,res)=>{
@@ -33,5 +33,5 @@ const loginuser= async (req, res)=>{
 }
 
 module.exports={
-    registerpage,registerusers,loginpage,loginuser,dashpage
+    registerpage,registerusers,loginpage,loginuser,dashpage 
 }

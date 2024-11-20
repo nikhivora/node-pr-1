@@ -6,15 +6,14 @@ const app=express()
 
 app.set('view engine','ejs')
 
-app .use(express.urlencoded())
 
 const passport=require('passport')
 
-const passportlocal=require('./config/paaportlocal')
- 
+constdb=require('./config/db')
+
+const passportlocal=require('./config/passportlocal')
+
 const session=require('express-session')
-
-
 app.use(session({
     secret:'nikhil',
     resave:false,
@@ -23,15 +22,15 @@ app.use(session({
         maxAge:1000*60*60*24
     }
 }))
-
 app.use(passport.session())
-
 app.use(passport.initialize())
+
 
 
 app.use('/',require('./routes/indexroutes'))
 
-constdb=require('./config/db')
+app .use(express.urlencoded())
+
 
 app.listen(port,(err)=>{
     if (err) {

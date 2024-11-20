@@ -5,11 +5,11 @@ const routes=express.Router()
 
 const passport=require('passport')
 
-routes.get('/',registerpage)
-routes.get('/login',loginpage)
-routes.post('/insert',registerusers)
+routes.get('/',loginpage)
+routes.get('/res',registerpage)
+routes.post('/insert', registerusers)
 routes.post('/loginusers',passport.authenticate('local',{failureRedirect:'/'}),  loginuser)
 
-routes.get('/dash',dashpage)
+routes.get('/dash',passport.checkuser,dashpage)
 
 module.exports=routes
