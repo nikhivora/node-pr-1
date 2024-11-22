@@ -1,5 +1,6 @@
 const usermodels = require('../models/usermodels')
-
+const blogmodels=require('../models/view')
+const fs=require('fs')
 const resiterpage = (req, res) => {
     return res.render('resiter')
 
@@ -7,9 +8,15 @@ const resiterpage = (req, res) => {
 const loginpage = (req, res) => {
     return res.render('login')
 }
-const dashbord = (req, res) => {
-    return res.render('dash')
-}
+// const dashbord = async (req, res) => {
+
+//     try {
+        
+//     } catch (error) {
+        
+//     }
+//     return res.render('dash')
+// }
 const Resiterusers = async (req, res) => {
     try {
         const { name, email, password } = req.body;
@@ -41,7 +48,7 @@ console.log(user);
             return res.redirect('/')
         }
 
-        return res.redirect('/dash')
+        return res.redirect('/viewblog')
     } catch (error) {
         console.log(error);
         return false
@@ -49,11 +56,127 @@ console.log(user);
     }
 }
 
+const addblogpage=async(req,res)=>{
+
+    
+    return res.render('addblog',)
+
+
+
+}
+
+const addblogusers= async (req, res)=>{
+
+try {
+    const {title,desc}=req.body    
+await blogmodels.create({
+    title,
+    desc,
+    image:req.file.path
+})
+    return res.redirect('/viewblog')
+
+} catch (error) {
+    console.log(error);
+    return false
+    
+}
+}
+
+
+const viewblog= async (req, res)=>{
+try {
+    
+
+    let users=await blogmodels.find({})
+    return res.render('viewblog',{
+        users
+    })
+    
+} catch (error) {
+    console.log(error);
+    return false
+    
+}
+
+    
+}
+
+const deleterecord= async (req, res)=>{
+   
+    try {
+        
+
+        let id =req.query.id
+
+let single=await blogmodels.findById(id)
+fs.unlinkSync(single.image)
+
+        await blogmodels.findByIdAndDelete(id)
+        return res.redirect('/viewblog')
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+const editrecord= async (req, res)=>{
+   
+    try {
+        let id = req.query.id;
+        let single = await blogmodels.findById(id);
+        return res.render('editblog',{
+            single
+        })
+
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+const upblog= async (req, res)=>{
+  
+    try {
+        
+        const {editid,title,desc}=req.body 
+
+
+        if (req.file) {
+            let single=await blogmodels.findById(editid)
+            fs.unlinkSync(single.image) 
+    
+            await blogmodels.findByIdAndUpdate(editid,{
+                title,desc,
+                image:req.file.path
+            })
+              return res.redirect('/viewblog')
+    
+            
+        } else {
+            let single=await blogmodels.findById(editid)
+    
+            await blogmodels.findByIdAndUpdate(editid,{
+                title,desc,
+                image:single.image
+            })
+              return res.redirect('/viewblog')
+    
+        }
+       
+    } catch (error) {
+        console.log(Error);
+        
+    }
+    
+}
+
+
 module.exports = {
     resiterpage,
     loginpage,
     Resiterusers,
     loginuseres,
-    dashbord
+    addblogpage,addblogusers,viewblog,deleterecord,editrecord,upblog
 
 }
