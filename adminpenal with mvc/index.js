@@ -29,13 +29,10 @@ app.use(session({
 
 
 app.use(passport.initialize())
-
 app.use(passport.session())
-app.use(express.urlencoded())
 app.use(passport.setUser);
+app.use(express.urlencoded())
 app.use('/', require('./routes/indexroutes'))
-
-
 app.listen(port, (err) => {
     if (err) {
         console.log(err);

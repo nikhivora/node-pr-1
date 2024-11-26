@@ -10,7 +10,10 @@ passport.use(new paaportlocal({
     usernameField: 'email',
 }, async (email, password, done) => {
     try {
+
         let user = await usermodels.findOne({ email: email });
+     
+        
         if (!user || user.password != password) {
             console.log("Email and Password not valid");
             return done(null, false)
@@ -28,7 +31,9 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await UserModel.findById(id);
+        const user = await usermodels.findById(id);
+      
+        
         return done(null, user)
     } catch (err) {
         return done(null, false);
@@ -36,6 +41,7 @@ passport.deserializeUser(async (id, done) => {
 })
 
 passport.checkUser = (req, res, next) => {
+    
     if (!req.isAuthenticated()) {
         return res.redirect('/')
     }
@@ -47,5 +53,7 @@ passport.setUser = (req, res, next) => {
     }
     return next();
 }
+
+
 
 module.exports=passport

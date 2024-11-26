@@ -7,7 +7,7 @@
         <div class="row align-items-center">
           <div class="col-md-6">
             <div class="title">
-              <h2>Sign in</h2>
+              <h2>Sign in email</h2>
             </div>
           </div>
           <!-- end col -->
@@ -39,7 +39,7 @@
               <div class="title text-center">
                 <h1 class="text-primary mb-10">Welcome Back</h1>
                 <p class="text-medium">
-                  Sign in to your Existing account to continue
+                  email your Existing account to continue
                 </p>
               </div>
               <div class="cover-image">
@@ -55,26 +55,21 @@
         <div class="col-lg-6">
           <div class="signin-wrapper">
             <div class="form-wrapper">
-              <h6 class="mb-15">Sign In Form</h6>
+              <h6 class="mb-15">Sign in Form</h6>
               <p class="text-sm mb-25">
                 Start creating the best possible user experience for you
                 customers.
               </p>
-              <form action="/loginusers" method="post">
+              <form action="/email" method="post">
                 <div class="row">
                   <div class="col-12">
                     <div class="input-style-1">
                       <label>Email</label>
-                      <input type="email" placeholder="Email" name="email" />
+                      <input type="email" placeholder="Email" name="usersemail" />
                     </div>
                   </div>
                   <!-- end col -->
-                  <div class="col-12">
-                    <div class="input-style-1">
-                      <label>Password</label>
-                      <input type="password" placeholder="Password" name="password" />
-                    </div>
-                  </div>
+                  
                   <!-- end col -->
                   <div class="col-xxl-6 col-lg-12 col-md-6">
                     <div class="form-check checkbox-style mb-30">
@@ -86,7 +81,7 @@
                   <!-- end col -->
                   <div class="col-xxl-6 col-lg-12 col-md-6">
                     <div class="text-start text-md-end text-lg-start text-xxl-end mb-30">
-                      <a href="/emailverifition" class="hover-underline">
+                      <a href="reset-password.html" class="hover-underline">
                         Forgot Password?
                       </a>
                     </div>
