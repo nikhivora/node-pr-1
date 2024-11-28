@@ -8,33 +8,36 @@ app.set('view engine', 'ejs')
 
 const path=require('path')
 
-const db=require('./config/db')
+const  cookieparser=require('cookie-parser')
+
+app.use(cookieparser())
 
 app.use(express.urlencoded())
+const db=require('./config/db')
+
 
 app.use('/',require('./routes/indexroutes'))
 
 app.use('/',express.static(path.join(__dirname,'public')));
 
 
-const passport=require('passport')
+// const passport=require('passport')
 
-const passportlocal=require('./config/passportlocal')
+// const passportlocal=require('./config/passportlocal')
 
-const session=require('express-session')
+// const session=require('express-session')
 
-app.use(session({
-    secret: 'admin',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24
-    }
-}))
+// app.use(session({
+//     secret: 'admin',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         maxAge: 1000 * 60 * 60 * 24
+//     }
+// }))
 
-app.use(passport.initialize())
-app.use(passport.session())
-
+// app.use(passport.initialize())
+// app.use(passport.session()) 
 
 
 
