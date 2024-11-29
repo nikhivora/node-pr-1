@@ -1,52 +1,58 @@
-// const passport = require('passport')
+const passport = require('passport')
 
 
-// const passportlocal = require("passport-local").Strategy
+const passportlocal = require("passport-local").Strategy
 
-// const usermodels = require('../models/usermodels')
+const usermodels = require('../models/usermodels')
 
-// passport.use(new passportlocal({
-//     usernameField: 'email',
-// }, async (email, password, done) => {
-//     try {
+passport.use(new passportlocal({
+    usernameField: 'email',
+}, async (email, password, done) => {
 
-//         let user = await usermodels.findOne({ email: email });
+  
+    
+    try {
+
+        let user = await usermodels.findOne({ email: email });
      
         
-//         if (!user || user.password != password) {
-//             console.log("Email and Password not valid");
-//             return done(null, false)
-//         }
-//         return done(null, user);
-//     } catch (err) {
-//         console.log(err);
-//         return done(null, false);
-//     }
-// }))
+        if (!user || user.password != password) {
+            console.log("Email and Password not valid");
+            return done(null, false)
+        }
+        return done(null, user);
+    } catch (err) {
+        console.log(err);
+        return done(null, false);
+    }
+}))
 
-// passport.serializeUser((user, done) => {
-//     return done(null, user._id);
-// })
+passport.serializeUser((user, done) => {
+    return done(null, user._id);
+})
 
-// passport.deserializeUser(async (id, done) => {
-//     try {
-//         const user = await usermodels.findById(id);
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await usermodels.findById(id);
+      console.log(user);
       
         
-//         return done(null, user)
-//     } catch (err) {
-//         return done(null, false);
-//     }
-// })
+        return done(null, user)
+    } catch (err) {
+        return done(null, false);
+    }
+})
 
-// passport.checkUser = (req, res, next) => {
-    
-
-//     console.log(req.isAuthenticated());
-    
-//     if (!req.isAuthenticated()) {
-//         return res.redirect('/')
-//     }
-//     return next();
-// }
-// module.exports = passport
+passport.checkUser = (req, res, next) => { 
+    if (!req.isAuthenticated()) {
+        return res.redirect('/')
+    }
+    return next();
+}
+passport.setUser = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        res.locals.users = req.user
+    }
+    return next();
+}
+module.exports = passport
