@@ -8,7 +8,7 @@ const userschama=mongoose.Schema({
     },
    status:{
         type:String,
-        status:'deactive'
+        default:'deactive'
     }
 })
 
