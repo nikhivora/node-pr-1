@@ -1,7 +1,7 @@
 const express=require('express')
-const { apicall } = require('../controller/apicontroller')
+const { adddata } = require('../controller/apicontroller')
 
 const routes=express.Router()
 
-routes.get('/',apicall)
+routes.post('/users',adddata) 
 module.exports=routes

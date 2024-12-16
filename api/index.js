@@ -5,7 +5,10 @@ const port=8000
 const app=express()
 
 const db=require('./config/db')
+db();
 
+
+app.use(express.urlencoded())
 app.use('/',require('./routes/indexroutes'))
 
 app.listen(port,(err)=>{
