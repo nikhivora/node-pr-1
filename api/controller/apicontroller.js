@@ -5,6 +5,8 @@ try {
 
     const {name,password,email,city}=req.body
 
+    
+
     const users=await usermodels.create({
         name:name,
         password:password,
@@ -18,10 +20,18 @@ return res.status(200).send({
 })
     
 } catch (error) {
-    console.log(error);
+    return res.status(500).send({
+        sucess:false,
+        err:error
+    })
 }
+
+}
+
+const viewuser=(req , res)=>{
+
 }
 
 module.exports={
-    adddata
+    adddata,viewuser
 }

@@ -1,7 +1,9 @@
 const express=require('express')
-const { adddata } = require('../controller/apicontroller')
+const { adddata, viewuser } = require('../controller/apicontroller')
 
 const routes=express.Router()
 
-routes.post('/users',adddata) 
+routes.post('/addusers',adddata) 
+routes.get('/viewusers',viewuser) 
+
 module.exports=routes

@@ -19,5 +19,5 @@ const userschema=mongoose.Schema({
     },
     
 })
-const user=mongoose.model('user',userschema)
+const user=mongoose.model('api',userschema)
 module.exports=user
