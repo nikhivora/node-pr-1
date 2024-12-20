@@ -30,9 +30,9 @@ const addCategory=async(req, res)=>{
             return false
         }
     }
-const deleteCategory(req, res)=>{
+// const deleteCategory(req, res)=>{
     
-}
+// }
 module.exports={
     AddCategorypage,addCategory,ViewCategorypage
 }

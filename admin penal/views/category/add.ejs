@@ -42,14 +42,15 @@
                         </div>
                         <% } %> -->
 
-                            <form action="/category/addCategory" method="post" class="form-horizontal">
+                            <form 
+                             class="form-horizontal">
                                 <div class="card-body">
                                     <h4 class="card-title">Add Category</h4>
                                     <div class="form-group row">
                                         <label for="fname"
                                             class="col-sm-3 text-end control-label col-form-label">Category</label>
                                         <div class="col-sm-9">
-                                            <input type="text" name="category" class="form-control" id="fname"
+                                            <input type="text" name="category" id="category" class="form-control" id="fname"
                                                 placeholder="Category Name Here" />
                                         </div>
                                     </div>
@@ -57,7 +58,7 @@
                                 </div>
                                 <div class="border-top">
                                     <div class="card-body">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" onclick="insratrecord()" class="btn btn-primary">
                                             Submit
                                         </button>
                                         <a href="/category/view" class="btn btn-info">View</a>
@@ -85,6 +86,10 @@
     <!-- ============================================================== -->
     <!-- End footer -->
     <!-- ============================================================== -->
-</div>
+</div><script>
+    const insratrecord=()=>{
+        let category = document.getElementById("category").value
+    }
+</script>
 
 <%- include('../footer') %>
