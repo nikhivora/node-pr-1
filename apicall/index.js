@@ -6,8 +6,7 @@ const app=express()
 
 const db=require('./config/db')
 db();
-
-
+const path=require('path')
 
 const cors = require('cors'); 
 app.use(cors());
