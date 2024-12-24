@@ -3,7 +3,7 @@ const mongoose=require('mongoose')
 const userschema=mongoose.Schema({
     userid:{
         type:mongoose.Schema.Types.ObjectId,
-       ref:'user'
+       ref:'api'
     },
     title:{
         type:String,
