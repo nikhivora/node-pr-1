@@ -7,7 +7,7 @@ const userschema=mongoose.Schema({
     },
     postid:{
         type:mongoose.Schema.Types.ObjectId,
-        require:true
+         ref:'postusers'
     },
     comment:{
         type:String,
