@@ -1,5 +1,5 @@
 const express=require('express')
-const { loginpage, respage, inserstrecord, loginusers, dashbordpage, prodactadd, addproduact } = require('../controller/authcontroller')
+const { loginpage, respage, inserstrecord, loginusers, dashbordpage, prodactadd, addproduact, deleteproduct, editproduct } = require('../controller/authcontroller')
 
 const routes=express.Router()
 const passport=require('passport')
@@ -25,6 +25,9 @@ routes.post('/loginusers',passport.authenticate('local',{failureRedirect:'/'}),l
 routes.get('/dash',passport.checkUser,dashbordpage)
 routes.get('/prodactadd',passport.checkUser,prodactadd)
 routes.post('/addproduact',upload,addproduact)
+routes.get('/delete',deleteproduct)
+routes.get('/edit',editproduct)
+routes.post('/up',editproduct)
 
 
 
