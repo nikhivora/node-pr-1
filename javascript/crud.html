@@ -13,28 +13,28 @@
     <input type="text" placeholder="Email" id="email">
     <input type="text" placeholder="Password" id="password">
     <input type="submit" onclick="saverecord()">
-    <button  id="Edit" onclick="updetuers()">Edit</button>
+    <button id="Edit" onclick="updetuers()">Edit</button>
     <br><br>
-    <table  border="1" >
-       <thead>
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>Email</th>
-            <th>password</th>
-          
-        </tr>
-       </thead>
-       <tbody id="tbody">
-<td>
-  
-</td>
-       </tbody>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>Email</th>
+                <th>password</th>
+
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <td>
+
+            </td>
+        </tbody>
     </table>
 
     <script>
 
-        let record = []
+        let record = JSON.parse(localStorage.getItem("user")) || []
         const saverecord = () => {
             const name = document.getElementById("name").value
             const email = document.getElementById("email").value
@@ -47,69 +47,75 @@
                 password: password
             }
             record.push(obj)
-
-            document.getElementById("name").valu = ""
+            localStorage.setItem("user", JSON.stringify(record));
+            document.getElementById("name").value = ""
             document.getElementById("email").value = ""
             document.getElementById("password").value = ""
             viewdata()
         }
-
         const viewdata = () => {
-            let tbl = ""
-            record.map((val, index) => {
-                tbl = `
-                 <tr>
-        <td> ${val.id}</td>
-        <td> ${val.name}</td>
-        <td> ${val.email}</td>
-        <td> ${val.password}</td>
-        <td>  <button onclick="deletedata(${val.id})">delete</button></td>
-        <td>  <button onclick="editdata(${val.id})">Edit</button></td>
-       
-    </tr>
-                `
-            })
+            let record = JSON.parse(localStorage.getItem("user")) || [];
+            let tbl = "";
+            record.map((val) => {
+                tbl += `
+            <tr>
+                <td>${val.id}</td>
+                <td>${val.name}</td>
+                <td>${val.email}</td>
+                <td>${val.password}</td>
+                <td> <button onclick="deletedata(${val.id})">Delete</button> </td>
+                <td> <button onclick="editdata(${val.id})">Edit</button> </td>
+            </tr>
+        `;
+            });
 
-            document.getElementById('tbody').innerHTML=tbl
+            document.getElementById('tbody').innerHTML = tbl;
+        };
+        const deletedata = (id) => {
+    let record = JSON.parse(localStorage.getItem("user")) || [];
+    let updatedData = record.filter(val => val.id != id);
+
+    localStorage.setItem("user", JSON.stringify(updatedData));
+    viewdata(); // Refresh displayed data
+};
+const editdata = (id) => {
+    let record = JSON.parse(localStorage.getItem("user")) || [];
+    let single = record.find(val => val.id == id);
+
+    
+
+    document.getElementById('name').value = single.name;
+    document.getElementById('email').value = single.email;
+    document.getElementById('password').value = single.password;
+    document.getElementById('editid').value = single.id;
+};
+const updetuers = () => {
+    let editId = document.getElementById("editid").value;
+    let userName = document.getElementById("name").value;
+    let userEmail = document.getElementById("email").value;
+    let userPass = document.getElementById("password").value;
+
+    let record = JSON.parse(localStorage.getItem("user")) || [];
+    let updatedData = record.map(val => {
+        if (val.id == editId) {
+            val.name = userName;
+            val.email = userEmail;
+            val.password = userPass;
         }
+        return val;
+    });
 
-        const deletedata=(id)=>{
-            let deletedata= record.filter(val=>val.id !=id)
-            record=deletedata
-            console.log(deletedata);
-            viewdata()
-        }
-const editdata=(id)=>{
-     let single = record.find(val => val.id == id);
-  
-     
-  document.getElementById('name').value = single.name
-  document.getElementById('email').value = single.email
-  document.getElementById('password').value = single.password
-  document.getElementById('editid').value = single.id
+    localStorage.setItem("user", JSON.stringify(updatedData));
 
-}
-const updetuers=()=>{
-    let updet=document.getElementById("editid").value
-            let userfname=document.getElementById("name").value
-            let useremail=document.getElementById("email").value
-            let pass=document.getElementById("password").value
-          
+    // Clear input fields
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("editid").value = "";
 
-            let up=record.map((val, i)=>{
-                if(val.id==updet){
-                    val.name=userfname
-                    val.email=useremail
-                    val.password=pass
-                }
-                return val;
-            })
-    record=up
-    document.getElementById("name").value = ""
-    document.getElementById("email").value = ""
-            document.getElementById("password").value = ""
-            viewdata()
-}
+    viewdata();
+};
+
     </script>
 </body>
 
