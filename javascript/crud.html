@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="hidden" id="editid">
+    <input type="text" placeholder="Name" id="name">
+    <input type="text" placeholder="Email" id="email">
+    <input type="text" placeholder="Password" id="password">
+    <input type="submit" onclick="saverecord()">
+    <button  id="Edit" onclick="updetuers()">Edit</button>
+    <br><br>
+    <table  border="1" >
+       <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>Email</th>
+            <th>password</th>
+          
+        </tr>
+       </thead>
+       <tbody id="tbody">
+<td>
+  
+</td>
+       </tbody>
+    </table>
+
+    <script>
+
+        let record = []
+        const saverecord = () => {
+            const name = document.getElementById("name").value
+            const email = document.getElementById("email").value
+            const password = document.getElementById("password").value
+
+            let obj = {
+                id: Math.floor(Math.random() * 100000),
+                name: name,
+                email: email,
+                password: password
+            }
+            record.push(obj)
+
+            document.getElementById("name").valu = ""
+            document.getElementById("email").value = ""
+            document.getElementById("password").value = ""
+            viewdata()
+        }
+
+        const viewdata = () => {
+            let tbl = ""
+            record.map((val, index) => {
+                tbl = `
+                 <tr>
+        <td> ${val.id}</td>
+        <td> ${val.name}</td>
+        <td> ${val.email}</td>
+        <td> ${val.password}</td>
+        <td>  <button onclick="deletedata(${val.id})">delete</button></td>
+        <td>  <button onclick="editdata(${val.id})">Edit</button></td>
+       
+    </tr>
+                `
+            })
+
+            document.getElementById('tbody').innerHTML=tbl
+        }
+
+        const deletedata=(id)=>{
+            let deletedata= record.filter(val=>val.id !=id)
+            record=deletedata
+            console.log(deletedata);
+            viewdata()
+        }
+const editdata=(id)=>{
+     let single = record.find(val => val.id == id);
+  
+     
+  document.getElementById('name').value = single.name
+  document.getElementById('email').value = single.email
+  document.getElementById('password').value = single.password
+  document.getElementById('editid').value = single.id
+
+}
+const updetuers=()=>{
+    let updet=document.getElementById("editid").value
+            let userfname=document.getElementById("name").value
+            let useremail=document.getElementById("email").value
+            let pass=document.getElementById("password").value
+          
+
+            let up=record.map((val, i)=>{
+                if(val.id==updet){
+                    val.name=userfname
+                    val.email=useremail
+                    val.password=pass
+                }
+                return val;
+            })
+    record=up
+    document.getElementById("name").value = ""
+    document.getElementById("email").value = ""
+            document.getElementById("password").value = ""
+            viewdata()
+}
+    </script>
+</body>
+
+</html>
